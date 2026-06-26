@@ -28,17 +28,16 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0f172a;color:#e2e8f0;fo
 #viol-banner strong{color:#ef4444;display:block;margin-bottom:2px}
 
 /* Card */
-.card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px 22px;margin-bottom:16px}
+.card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px 22px;margin-bottom:16px; scroll-margin-top: 20px;}
 .card-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#64748b;margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .step-badge{background:#334155;color:#94a3b8;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px}
 .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
 .field{display:flex;flex-direction:column;gap:4px; text-align:left;}
 .field label{font-size:11px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
-.field input,.field select,.field textarea{background:#0f172a;border:1px solid #334155;border-radius:8px;color:#e2e8f0;font-size:13px;padding:8px 12px;width:100%;outline:none;transition:border-color 0.15s}
+.field input,.field select,.field textarea{background:#0f172a;border:1px solid #334155;border-radius:8px;color:#e2e8f0;font-size:13px;padding:8px 12px;width:100%;outline:none;transition:border-color 0.15s; font-family: inherit;}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:#3b82f6}
 .field input::placeholder{color:#475569}
 
-/* Color overrides for dark mode date pickers */
 ::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
 
 #assign-box{display:none;margin-top:12px;background:#0f172a;border:1px solid #1d4ed8;border-radius:10px;padding:14px 16px}
@@ -46,37 +45,87 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#0f172a;color:#e2e8f0;fo
 #assign-box .am{font-size:15px;font-weight:700;color:#f1f5f9;margin-bottom:2px}
 #assign-box .as{font-size:12px;color:#64748b}
 
-/* Preview badge */
 .preview-badge{display:inline-block;background:#7c3aed;color:#ede9fe;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;margin-left:8px;vertical-align:middle}
 
-/* Xray */
-.xray-grid{display:grid;gap:12px}
+/* Xray Content Workspace */
+.xray-grid{display:grid;gap:16px;transition:0.15s ease;}
 .xray-grid.two{grid-template-columns:1fr 1fr}
-.xray-wrap{position:relative;background:#000;border-radius:8px;overflow:hidden;border:1px solid #334155;cursor:crosshair}
-.xray-wrap img{width:100%;display:block;max-height:420px;object-fit:contain}
-.xray-label{position:absolute;top:8px;left:8px;background:rgba(0,0,0,0.7);color:#fff;font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px;pointer-events:none}
-.pin{position:absolute;width:15px;height:15px;border-radius:50%;background:#ef4444;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;transform:translate(-50%,-50%);cursor:pointer;box-shadow:0 0 0 2px rgba(239,68,68,0.4);pointer-events:all}
-.img-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#000;color:#475569;font-size:12px}
+.xray-block{display:flex;flex-direction:column;gap:6px}
+.xray-toolbar{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.xray-toolbar-label{font-size:11px;color:#94a3b8;font-weight:600;flex:1;min-width:80px}
+.zoom-btn{width:26px;height:26px;border:1px solid #334155;border-radius:6px;background:#1e293b;color:#e2e8f0;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:600;line-height:1;flex-shrink:0;padding:0}
+.zoom-btn:hover{background:#334155}
+.zoom-level{font-size:11px;color:#94a3b8;min-width:38px;text-align:center}
+.zoom-reset{font-size:11px;padding:3px 8px;border:1px solid #334155;border-radius:6px;background:#1e293b;color:#64748b;cursor:pointer}
+.zoom-reset:hover{background:#334155;color:#e2e8f0}
 
-/* Table */
-table{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
-th{background:#0f172a;padding:8px;text-align:left;font-weight:600;font-size:11px;border:1px solid #334155;color:#64748b;text-transform:uppercase;letter-spacing:0.4px}
-td{border:1px solid #334155;padding:0;vertical-align:top}
-td input,td textarea{border:none;background:transparent;font-size:12px;padding:6px 8px;width:100%;color:#e2e8f0;outline:none}
-td input:focus,td textarea:focus{background:#0f172a}
+.xray-outer{position:relative;overflow:hidden;background:#000;border-radius:8px;border:1px solid #334155;height:420px;cursor:crosshair;}
+.xray-inner{position:absolute;top:0;left:0;width:100%;height:100%;transform-origin:0 0;will-change:transform}
+.xray-inner img{width:100%;height:100%;object-fit:contain;display:block;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.pin-layer{position:absolute;inset:0;pointer-events:none}
+.xray-label{position:absolute;top:7px;left:7px;background:rgba(0,0,0,0.7);color:#fff;font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;pointer-events:none;z-index:3}
+.zoom-hint{position:absolute;bottom:6px;right:7px;background:rgba(0,0,0,0.55);color:#94a3b8;font-size:9px;padding:2px 7px;border-radius:4px;pointer-events:none;z-index:3}
+
+/* ZERO-OVERLAP "GHOST" PINS */
+.pin {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #ef4444;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none; /* Clicks pass entirely through the dot */
+  z-index: 10;
+  box-shadow: 0 0 2px #000;
+  transition: top 0.15s ease, left 0.15s ease; 
+}
+.pin-label {
+  position: absolute;
+  top: -12px;
+  left: 6px;
+  color: #ef4444;
+  font-size: 14px;
+  font-weight: 900;
+  font-family: monospace;
+  text-shadow: 
+    1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    0px 1px 0 #000, 1px 0px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000;
+  pointer-events: none; /* Clicks pass entirely through the label */
+}
+.img-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#000;color:#475569;font-size:12px;z-index:2}
+
+/* Table & Linking - WIDENED FOR READABILITY */
+.table-wrapper { overflow-x: auto; border-radius: 8px; border: 1px solid #334155; margin-bottom: 10px; background: #0f172a;}
+table{width:100%; min-width: 1000px; border-collapse:collapse; font-size:12px; table-layout:fixed; transition: all 0.2s;}
+th{background:#0f172a;padding:10px 8px;text-align:left;font-weight:600;font-size:11px;border:1px solid #334155;color:#64748b;text-transform:uppercase;letter-spacing:0.4px}
+td{border:1px solid #334155;padding:0;vertical-align:top; transition: background 0.2s;}
+td input,td textarea{border:none;background:transparent;font-size:13px;padding:8px 10px;width:100%;color:#e2e8f0;outline:none; font-family: inherit;}
+td input:focus,td textarea:focus{background:#1e293b}
 td textarea{min-height:50px;resize:vertical}
-.del-btn{width:28px;height:28px;padding:0;border:none;display:flex;align-items:center;justify-content:center;color:#ef4444;background:transparent;cursor:pointer;border-radius:4px;font-size:14px;margin:auto}
+.del-btn{width:32px;height:32px;padding:0;border:none;display:flex;align-items:center;justify-content:center;color:#ef4444;background:transparent;cursor:pointer;border-radius:4px;font-size:14px;margin:auto}
 .del-btn:hover{background:rgba(239,68,68,0.1)}
-.field textarea{min-height:80px;resize:vertical}
 
-/* Buttons */
+tr.active-row td { background: rgba(37, 99, 235, 0.15); border-color: #3b82f6; }
+tr.active-row input, tr.active-row textarea { color: #fff; }
+
+.link-btn { width: 100%; height: 100%; min-height: 48px; background: transparent; border: none; color: #94a3b8; cursor: pointer; font-size: 11px; font-weight: 600; transition: all 0.15s; }
+.link-btn:hover { color: #e2e8f0; background: rgba(255,255,255,0.05); }
+tr.active-row .link-btn { background: #2563eb; color: #fff; }
+tr.active-row .link-btn:hover { background: #1d4ed8; }
+
+/* Buttons & Mode Toggles */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:13px;padding:8px 18px;border-radius:8px;border:1px solid #334155;background:transparent;color:#e2e8f0;cursor:pointer;transition:all 0.15s; width:100%}
 .btn:hover{background:#334155}
 .btn.primary{background:#2563eb;border-color:#2563eb;color:#fff;font-weight:600}
 .btn.primary:hover{background:#1d4ed8}
-.btn.sm{font-size:12px;padding:5px 12px; width:auto;}
+.btn.sm{font-size:12px;padding:6px 14px; width:auto;}
 .btn.danger{color:#ef4444;border-color:#7f1d1d}
 .btn.danger:hover{background:rgba(239,68,68,0.1)}
+
+.mode-container { display: flex; background: #1e293b; border: 1px solid #334155; padding: 6px; border-radius: 8px; gap: 6px; margin-bottom: 12px; }
+.mode-btn { flex: 1; padding: 10px; font-size: 12px; font-weight: 600; border: none; background: transparent; color: #94a3b8; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.15s ease; }
+.mode-btn.active { background: #2563eb; color: #fff; }
+.mode-btn.active#btn-mode-mark { background: #dc2626; }
 
 /* Lock screen */
 #lock-overlay{position:fixed;inset:0;background:rgba(15,23,42,0.96);display:flex;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(4px); overflow-y:auto; padding:20px;}
@@ -107,8 +156,7 @@ td textarea{min-height:50px;resize:vertical}
   .lock-box{padding:24px 20px;}
 }
 </style>
-</head>
-<body>
+</head><body>
 
 <div id="viol-overlay"></div>
 
@@ -140,7 +188,6 @@ td textarea{min-height:50px;resize:vertical}
     </div>
 
     <div id="tab-dashboard" style="display:none">
-      
       <div class="dash-section">
         <div class="dash-title">📅 Schedule & Generate Link</div>
         <p style="font-size:11px; color:#64748b; text-align:left; margin-bottom:12px;">Generate a URL that strictly limits when students can access the OSPE. Share this link on WhatsApp or Classroom.</p>
@@ -165,7 +212,6 @@ td textarea{min-height:50px;resize:vertical}
         </div>
         <button class="btn" onclick="unlockFaculty()">Preview X-ray as Faculty ➜</button>
       </div>
-
     </div>
   </div>
 </div>
@@ -185,9 +231,7 @@ td textarea{min-height:50px;resize:vertical}
       <div id="timer-label">Time remaining</div>
       <div id="timer-display">20:00</div>
     </div>
-    <div class="timer-track">
-      <div id="timer-fill" style="width:100%"></div>
-    </div>
+    <div class="timer-track"><div id="timer-fill" style="width:100%"></div></div>
     <button class="btn sm primary" style="width:auto" onclick="validateAndExport()">⬇ Save as PDF</button>
   </div>
 
@@ -211,41 +255,50 @@ td textarea{min-height:50px;resize:vertical}
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-title"><span class="step-badge">Step 2</span> X-ray — Mark Ossification Centres</div>
-    <p style="font-size:12px;color:#64748b;margin-bottom:12px">Click on each ossification centre to place a numbered pin. Click a pin to remove it.</p>
+  <div class="card" id="xray-card">
+    <div class="card-title"><span class="step-badge">Step 2</span> X-ray Workspace</div>
+    <p style="font-size:12px;color:#64748b;margin-bottom:12px">Select a row in Step 3 below, then tap the image(s) to place its corresponding pin.</p>
+    
+    <div class="mode-container">
+      <button class="mode-btn" id="btn-mode-pan" onclick="toggleWorkspaceMode('pan')">🔍 Pan &amp; Zoom View</button>
+      <button class="mode-btn active" id="btn-mode-mark" onclick="toggleWorkspaceMode('mark')">📍 Place Target Reticle</button>
+    </div>
+
     <div id="no-xray">Loading your assigned X-ray...</div>
     <div id="xray-area" style="display:none">
       <div id="xray-grid" class="xray-grid"></div>
-      <div style="display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap">
-        <span style="font-size:12px;color:#64748b"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#ef4444;border:2px solid #fff;vertical-align:middle;margin-right:4px"></span>Pin</span>
-        <span style="font-size:12px;color:#64748b">Total pins: <strong id="total-pins" style="color:#e2e8f0">0</strong></span>
-        <button class="btn sm danger" onclick="clearAllPins()" style="margin-left:auto">✕ Clear all pins</button>
-      </div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-title"><span class="step-badge">Step 3</span> Ossification Centre Analysis Table</div>
-    <p style="font-size:12px;color:#64748b;margin-bottom:12px">Add each ossification centre. Fill all columns from your knowledge and X-ray findings.</p>
-    <div style="overflow-x:auto">
+    <p style="font-size:12px;color:#64748b;margin-bottom:12px">Add each ossification centre. Fill columns, then click "📍 Mark on X-ray" to place it above. (Swipe table horizontally if needed).</p>
+    
+    <div class="table-wrapper">
       <table>
         <colgroup>
-          <col style="width:32px"><col style="width:19%"><col style="width:14%"><col style="width:14%"><col style="width:22%"><col style="width:22%"><col style="width:28px">
+          <col style="width:40px">
+          <col style="width:180px">
+          <col style="width:120px">
+          <col style="width:120px">
+          <col style="width:200px">
+          <col style="width:200px">
+          <col style="width:110px">
+          <col style="width:40px">
         </colgroup>
         <thead>
           <tr>
-            <th>S.No</th><th>Ossification centre</th><th>Age of appearance</th><th>Age of fusion</th><th>Observation</th><th>Inference</th><th></th>
+            <th style="text-align:center;">No.</th><th>Ossification centre</th><th>Appearance</th><th>Fusion</th><th>Observation</th><th>Inference</th><th style="text-align:center">Mapping</th><th></th>
           </tr>
         </thead>
         <tbody id="table-body"></tbody>
       </table>
     </div>
-    <button class="btn sm" style="margin-top:10px" onclick="addRow()">＋ Add row</button>
+    <button class="btn sm" onclick="addRow()">＋ Add anatomical row</button>
   </div>
 
   <div class="card">
-    <div class="card-title"><span class="step-badge">Step 4</span> Opinion</div>
+    <div class="card-title"><span class="step-badge">Step 4</span> Final Opinion</div>
     <div style="margin-bottom:10px">
       <div class="field"><label>Estimated age range</label><input type="text" id="age-range" placeholder="e.g. 18–22 years" class="sel-ok"></div>
     </div>
@@ -296,103 +349,64 @@ const QUESTIONS = [
 
 let assignedQ = null;
 let isFaculty = false;
-let pins = {};
-let pinCounters = {};
-let rowCount = 0;
+let studentRoll = null; 
 let timerInterval = null;
 let secondsLeft = EXAM_SECONDS;
 let startTime = null;
 
-// Enforced Times from URL
+// ── LINKING LOGIC STATE ──
+let rowUIDCounter = 0;   
+let activeRowUID = null; 
+let pins = {};           
+let workspaceMode = 'mark'; 
+const zoomState = {};
+
 let enforcedStart = null;
 let enforcedEnd = null;
 
-// Violations
 let violations = [];
 let tabSwitchCount = 0;
 let fsExitCount = 0;
-let devtoolsCount = 0;
-let devtoolsOpen = false;
 
-// ── Initialization & URL Params ────────────────────────────
 window.onload = function() {
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.has('start') && urlParams.has('end')) {
     enforcedStart = new Date(parseInt(urlParams.get('start')));
     enforcedEnd = new Date(parseInt(urlParams.get('end')));
-    
-    const alertBox = document.getElementById('time-alert-box');
-    alertBox.innerHTML = `<strong>Scheduled Exam Window Active:</strong><br>
-    Opens: ${enforcedStart.toLocaleString('en-IN')}<br>
-    Closes: ${enforcedEnd.toLocaleString('en-IN')}<br><br>
-    You will have <strong>20 minutes</strong> to complete the OSPE once you log in.`;
   }
 };
 
-// ── Accidental Back / Refresh Prevention ───────────────────
 window.addEventListener('beforeunload', function (e) {
-  if (assignedQ && !isFaculty && secondsLeft > 0) {
-    e.preventDefault();
-    e.returnValue = ''; 
-  }
+  if (assignedQ && !isFaculty && secondsLeft > 0) { e.preventDefault(); e.returnValue = ''; }
 });
 
-// ── Tab switching ──────────────────────────────────────────
 document.addEventListener('visibilitychange', () => {
-  if (!assignedQ) return; 
-  if (document.hidden) {
-    tabSwitchCount++;
-    logViolation('Tab / window switch #' + tabSwitchCount + ' at ' + timeStr());
-    flashRed();
-  }
+  if (!assignedQ || isFaculty) return; 
+  if (document.hidden) { tabSwitchCount++; logViolation('Tab / window switch #' + tabSwitchCount + ' at ' + timeStr()); flashRed(); }
 });
 
-// ── Fullscreen ─────────────────────────────────────────────
 function requestFS() {
+  if (isFaculty) return;
   const el = document.documentElement;
   if (el.requestFullscreen) el.requestFullscreen();
   else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
 }
+
 document.addEventListener('fullscreenchange', () => {
-  if (!assignedQ) return; 
-  if (!document.fullscreenElement) {
-    fsExitCount++;
-    logViolation('Exited fullscreen #' + fsExitCount + ' at ' + timeStr());
-    flashRed();
-    setTimeout(requestFS, 800);
-  }
+  if (!assignedQ || isFaculty) return; 
+  if (!document.fullscreenElement) { fsExitCount++; logViolation('Exited fullscreen #' + fsExitCount + ' at ' + timeStr()); flashRed(); setTimeout(requestFS, 800); }
 });
 
-// ── DevTools detection ─────────────────────────────────────
-setInterval(() => {
-  if (!assignedQ) return; 
-  const t = performance.now();
-  debugger;
-  const diff = performance.now() - t;
-  const open = diff > 80;
-  if (open && !devtoolsOpen) {
-    devtoolsOpen = true;
-    devtoolsCount++;
-    logViolation('DevTools opened #' + devtoolsCount + ' at ' + timeStr());
-    flashRed();
-  } else if (!open) {
-    devtoolsOpen = false;
-  }
-}, 1500);
-
-// ── Right-click & Copy Paste ───────────────────────────────
 document.addEventListener('contextmenu', e => {
-  if (!assignedQ) return;
-  if (e.target.tagName === 'IMG') { e.preventDefault(); return false; }
+  if (!assignedQ || isFaculty) return;
+  if (e.target.tagName === 'IMG' || e.target.classList.contains('xray-outer') || e.target.classList.contains('pin-layer')) { e.preventDefault(); return false; }
 });
 
 ['copy','cut','paste'].forEach(ev => {
   document.addEventListener(ev, e => {
-    if (!assignedQ) return;
+    if (!assignedQ || isFaculty) return;
     const tag = e.target.tagName;
-    if ((tag === 'TEXTAREA' || tag === 'INPUT') && !e.target.classList.contains('sel-ok')) {
-      e.preventDefault();
-    }
+    if ((tag === 'TEXTAREA' || tag === 'INPUT') && !e.target.classList.contains('sel-ok')) { e.preventDefault(); }
     if (ev === 'paste' && (tag === 'TEXTAREA' || tag === 'INPUT')) {
       const id = e.target.id;
       if (!['s-name','s-reg','s-case','age-range','opinion'].includes(id)) e.preventDefault();
@@ -402,24 +416,29 @@ document.addEventListener('contextmenu', e => {
 
 function flashRed() {
   const ov = document.getElementById('viol-overlay');
-  ov.style.display = 'block';
-  setTimeout(() => { ov.style.display = 'none'; }, 600);
+  if(ov) { ov.style.display = 'block'; setTimeout(() => { ov.style.display = 'none'; }, 600); }
 }
 
-function timeStr() {
-  const now = new Date();
-  return now.toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});
-}
+function timeStr() { return new Date().toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true}); }
 
 function logViolation(msg) {
   violations.push(msg);
   const banner = document.getElementById('viol-banner');
   const list = document.getElementById('viol-list');
-  banner.style.display = 'block';
-  list.innerHTML = violations.map(v => '<br>• ' + v).join('');
+  if(banner && list) { banner.style.display = 'block'; list.innerHTML = violations.map(v => '<br>• ' + v).join(''); }
 }
 
-// ── Lock Screen Tabs ───────────────────────────────────────
+function showToast(msg) {
+  let old = document.getElementById('toast-msg');
+  if (old) old.remove();
+  const t = document.createElement('div');
+  t.id = 'toast-msg';
+  t.textContent = msg;
+  t.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:rgba(239,68,68,0.95);color:#fff;padding:12px 24px;border-radius:8px;font-weight:600;font-size:14px;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,0.3);pointer-events:none;transition:opacity 0.3s;';
+  document.body.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; setTimeout(()=>t.remove(), 300); }, 2500);
+}
+
 function switchTab(tab) {
   document.getElementById('tab-student').style.display = tab === 'student' ? 'block' : 'none';
   document.getElementById('tab-faculty').style.display  = tab === 'faculty'  ? 'block' : 'none';
@@ -427,35 +446,24 @@ function switchTab(tab) {
   document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', (i===0) === (tab==='student')));
 }
 
-// ── Fallback Copy Text Function ────────────────────────────
-function fallbackCopyTextToClipboard(text) {
-  var textArea = document.createElement("textarea");
-  textArea.value = text;
-  textArea.style.top = "0";
-  textArea.style.left = "0";
-  textArea.style.position = "fixed";
-  document.body.appendChild(textArea);
-  textArea.focus();
-  textArea.select();
-  try {
-    var successful = document.execCommand('copy');
-    return successful;
-  } catch (err) {
-    return false;
-  } finally {
-    document.body.removeChild(textArea);
-  }
+function toggleWorkspaceMode(mode) {
+  workspaceMode = mode;
+  document.getElementById('btn-mode-pan').classList.toggle('active', mode === 'pan');
+  document.getElementById('btn-mode-mark').classList.toggle('active', mode === 'mark');
+  Object.keys(zoomState).forEach(idx => {
+    const outer = document.getElementById('xray-outer-' + idx);
+    if (outer) {
+       outer.style.cursor = (mode === 'pan') ? 'grab' : 'crosshair';
+       outer.style.touchAction = (mode === 'pan') ? 'none' : 'auto'; 
+    }
+  });
 }
 
-// ── Faculty Dashboard Logic ────────────────────────────────
 function loginFaculty() {
   const pin = document.getElementById('faculty-pin').value.trim();
-  const err = document.getElementById('faculty-error');
-  if (pin !== FACULTY_PIN) { 
-    err.textContent = 'Incorrect PIN.'; 
-    return; 
-  }
-  err.textContent = '';
+  if (pin !== FACULTY_PIN) { document.getElementById('faculty-error').textContent = 'Incorrect PIN.'; return; }
+  document.getElementById('faculty-error').textContent = '';
+  isFaculty = true; 
   document.getElementById('tab-faculty').style.display = 'none';
   document.getElementById('tab-dashboard').style.display = 'block';
   document.querySelectorAll('.tab-btn')[1].textContent = "Faculty Dashboard";
@@ -465,392 +473,399 @@ function generateLink() {
   const sDate = document.getElementById('sched-start').value;
   const eDate = document.getElementById('sched-end').value;
   const box = document.getElementById('gen-link-box');
-  
-  if (!sDate || !eDate) {
-    showBoxError("⚠ Please select both a start and end time.");
-    return;
-  }
-
-  const sTime = new Date(sDate).getTime();
-  const eTime = new Date(eDate).getTime();
-  
-  if (eTime <= sTime) {
-    showBoxError("⚠ End time must be after start time.");
-    return;
-  }
-
-  // Strip existing URL parameters to cleanly generate new link
-  const currentUrl = window.location.href.split('?')[0];
-  const finalUrl = `${currentUrl}?start=${sTime}&end=${eTime}`;
-
-  // Attempt modern clipboard copy
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(finalUrl).then(() => {
-      showBoxSuccess(finalUrl);
-    }).catch(err => {
-      // Modern copy failed, try legacy
-      if (fallbackCopyTextToClipboard(finalUrl)) {
-        showBoxSuccess(finalUrl);
-      } else {
-        showBoxManual(finalUrl);
-      }
-    });
-  } else {
-    // Try legacy immediately if modern is unavailable
-    if (fallbackCopyTextToClipboard(finalUrl)) {
-      showBoxSuccess(finalUrl);
-    } else {
-      showBoxManual(finalUrl);
-    }
-  }
-
-  // Helper functions for UI states
-  function showBoxError(msg) {
-    box.style.display = 'block';
-    box.style.background = '#7f1d1d';
-    box.style.borderColor = '#ef4444';
-    box.style.color = '#fca5a5';
-    box.textContent = msg;
-  }
-
-  function showBoxSuccess(url) {
-    box.style.display = 'block';
-    box.style.background = '#064e3b';
-    box.style.borderColor = '#059669';
-    box.style.color = '#a7f3d0';
-    box.innerHTML = `<strong>✓ Copied to clipboard!</strong><br><br>Share this exact link with students:<br><br><input type="text" class="copy-input" value="${url}" readonly onclick="this.select()">`;
-  }
-
-  function showBoxManual(url) {
-    box.style.display = 'block';
-    box.style.background = '#1e3a8a';
-    box.style.borderColor = '#2563eb';
-    box.style.color = '#bfdbfe';
-    box.innerHTML = `<strong>Link generated!</strong> Auto-copy blocked by browser.<br><br>Click the box below and press Ctrl+C to copy manually:<br><br><input type="text" class="copy-input" style="border-color:#60a5fa" value="${url}" readonly onclick="this.select()">`;
-  }
+  if (!sDate || !eDate) return alert("Select both times.");
+  const finalUrl = `${window.location.href.split('?')[0]}?start=${new Date(sDate).getTime()}&end=${new Date(eDate).getTime()}`;
+  box.style.display = 'block';
+  box.innerHTML = `<strong>✓ Link generated successfully!</strong><br><br><input type="text" class="copy-input" value="${finalUrl}" readonly onclick="this.select()">`;
 }
 
-// ── Check Time Window ──────────────────────────────────────
 function checkTimeWindow(errEl) {
-  if (!enforcedStart || !enforcedEnd) return true; 
-  
+  if (!enforcedStart || !enforcedEnd) return true;  
   const now = new Date();
-  if (now < enforcedStart) {
-    errEl.textContent = 'Access Denied: The exam has not started yet. Opens at ' + enforcedStart.toLocaleTimeString('en-IN');
-    return false;
-  }
-  if (now > enforcedEnd) {
-    errEl.textContent = 'Access Denied: The exam window has concluded.';
-    return false;
-  }
+  if (now < enforcedStart) { errEl.textContent = 'Access Denied: Exam opens at ' + enforcedStart.toLocaleTimeString(); return false; }
+  if (now > enforcedEnd) { errEl.textContent = 'Access Denied: Exam window closed.'; return false; }
   return true;
 }
 
-// ── Unlock student ─────────────────────────────────────────
 function unlockStudent() {
   const val = document.getElementById('lock-roll').value.trim();
   const n = parseInt(val);
   const err = document.getElementById('lock-error');
-  
-  if (!val || isNaN(n) || n < 1 || n > 251) {
-    err.textContent = 'Please enter a valid roll number between 1 and 251.';
-    return;
-  }
-
+  if (!val || isNaN(n) || n < 1 || n > 251) return err.textContent = 'Invalid roll number.';
   if (!checkTimeWindow(err)) return;
-
-  if (localStorage.getItem('ospe_completed_' + n)) {
-    err.textContent = 'Access Denied: You have already completed the exam on this device.';
-    return;
-  }
-
-  err.textContent = '';
-  isFaculty = false;
+  if (localStorage.getItem('ospe_completed_' + n)) return err.textContent = 'Exam already completed.';
+  
+  isFaculty = false; studentRoll = n;
   assignedQ = assignQuestion(n);
   document.getElementById('s-roll').value = n;
-  
   localStorage.setItem('ospe_started_' + n, 'true');
-
-  launch();
-  startTimer();
-  setTimeout(requestFS, 300);
+  launch(); startTimer();
 }
 
-// ── Unlock faculty (Preview) ───────────────────────────────
 function unlockFaculty() {
   const val = document.getElementById('faculty-roll').value.trim();
   const n = parseInt(val);
-  
-  if (!val || isNaN(n) || n < 1 || n > 251) { 
-    alert('Enter a valid roll number to preview.'); 
-    return; 
-  }
-  
-  isFaculty = true;
-  assignedQ = assignQuestion(n);
+  if (!val || isNaN(n)) return alert('Enter a valid roll number.');
+  isFaculty = true; assignedQ = assignQuestion(n);
   document.getElementById('s-roll').value = n + ' (Faculty Preview)';
   document.getElementById('preview-badge').style.display = 'inline-block';
-  document.getElementById('timer-bar').style.opacity = '0.4';
-  document.getElementById('timer-label').textContent = 'Timer disabled (Faculty Preview)';
   launch();
-  setTimeout(requestFS, 300);
 }
 
 function launch() {
   document.getElementById('lock-overlay').style.display = 'none';
   document.getElementById('main-content').style.display = 'block';
-  const ab = document.getElementById('assign-box');
-  ab.style.display = 'block';
+  document.getElementById('assign-box').style.display = 'block';
   document.getElementById('assign-main').textContent = assignedQ.label + ' — ' + assignedQ.joint + ' joint';
-  document.getElementById('assign-sub').textContent = assignedQ.images.length > 1
-    ? assignedQ.images.length + ' images (' + assignedQ.images.map(i=>i.title).join(' & ') + ')'
-    : '1 image';
+  document.getElementById('assign-sub').textContent = assignedQ.images.length > 1 ? assignedQ.images.length + ' images' : '1 image';
   loadXrays();
 }
 
-// ── Timer ──────────────────────────────────────────────────
 function startTimer() {
   startTime = Date.now();
-  timerInterval = setInterval(tickTimer, 1000);
-  tickTimer();
-}
-
-function tickTimer() {
-  secondsLeft = EXAM_SECONDS - Math.floor((Date.now() - startTime) / 1000);
-  if (secondsLeft < 0) secondsLeft = 0;
-  const m = Math.floor(secondsLeft / 60).toString().padStart(2,'0');
-  const s = (secondsLeft % 60).toString().padStart(2,'0');
-  const disp = document.getElementById('timer-display');
-  const fill = document.getElementById('timer-fill');
-  disp.textContent = m + ':' + s;
-  const pct = (secondsLeft / EXAM_SECONDS) * 100;
-  fill.style.width = pct + '%';
-  disp.className = secondsLeft <= 120 ? 'danger' : secondsLeft <= 300 ? 'warn' : '';
-  fill.style.background = secondsLeft <= 120 ? '#ef4444' : secondsLeft <= 300 ? '#fbbf24' : '#4ade80';
-  if (secondsLeft === 0) {
-    clearInterval(timerInterval);
-    logViolation('⏰ Time expired — exam ended at ' + timeStr());
-    
-    if (!isFaculty) {
-        localStorage.setItem('ospe_completed_' + document.getElementById('s-roll').value, 'true');
+  timerInterval = setInterval(() => {
+    secondsLeft = EXAM_SECONDS - Math.floor((Date.now() - startTime) / 1000);
+    if (secondsLeft < 0) secondsLeft = 0;
+    const m = Math.floor(secondsLeft / 60).toString().padStart(2,'0'), s = (secondsLeft % 60).toString().padStart(2,'0');
+    document.getElementById('timer-display').textContent = m + ':' + s;
+    document.getElementById('timer-fill').style.width = ((secondsLeft / EXAM_SECONDS) * 100) + '%';
+    if (secondsLeft === 0) {
+      clearInterval(timerInterval);
+      if (!isFaculty) localStorage.setItem('ospe_completed_' + studentRoll, 'true');
+      alert('Time is up! Save PDF.');
     }
-    
-    alert('Time is up! Please save your PDF immediately.');
-  }
+  }, 1000);
 }
 
-// ── Hash assignment ────────────────────────────────────────
 function assignQuestion(roll) {
-  let n = parseInt(roll);
-  n = ((n * 2654435761) ^ (n >> 16)) >>> 0;
-  n = (n ^ (n * 1597334677)) >>> 0;
+  let n = parseInt(roll) + 8492; 
+  n = ((n * 3266489917) ^ (n >> 16)) >>> 0;
+  n = (n ^ (n * 668265261)) >>> 0;
   return QUESTIONS[n % QUESTIONS.length];
 }
 
-// ── X-ray loading ──────────────────────────────────────────
-function gdUrl(fileId) {
-  return 'https://drive.google.com/thumbnail?id=' + fileId + '&sz=w800';
+// ── TABLE SYNC LOGIC ───────────────────────────────────────
+
+function addRow() {
+  rowUIDCounter++;
+  const uid = rowUIDCounter;
+  const tbody = document.getElementById('table-body');
+  const tr = document.createElement('tr');  
+  tr.id = 'row-' + uid;
+  tr.setAttribute('data-uid', uid);
+  
+  tr.innerHTML = `
+    <td class="sno" style="text-align:center;padding:6px 2px;color:#475569;font-size:12px;font-weight:700;"></td>
+    <td><input type="text" placeholder="Centre name" data-c="name" class="sel-ok"></td>
+    <td><input type="text" placeholder="e.g. 1 year" data-c="app" class="sel-ok"></td>
+    <td><input type="text" placeholder="e.g. 15–18 years" data-c="fus" class="sel-ok"></td>
+    <td><textarea data-c="obs" class="sel-ok" placeholder="Enter findings..."></textarea></td>
+    <td><textarea data-c="inf" class="sel-ok" placeholder="Enter deductions..."></textarea></td>
+    <td style="padding:0;"><button class="link-btn" id="link-btn-${uid}" onclick="activateRow(${uid})">📍 Mark on X-ray</button></td>
+    <td><button class="del-btn" onclick="delRow(${uid})" title="Delete row">✕</button></td>`;
+  tbody.appendChild(tr);  
+  syncTableDisplay();
 }
+
+function delRow(uid) {
+  const tr = document.getElementById('row-' + uid);
+  if (tr) tr.remove();
+  
+  // Deleting the row also automatically deletes the linked pins on all images
+  Object.keys(pins).forEach(idx => { pins[idx] = pins[idx].filter(p => p.uid !== uid); });
+  if (activeRowUID === uid) { activeRowUID = null; toggleWorkspaceMode('mark'); }
+  
+  syncTableDisplay(); 
+  renderAllPins();
+}
+
+function syncTableDisplay() {
+  Array.from(document.querySelectorAll('#table-body tr')).forEach((tr, i) => {
+    tr.querySelector('.sno').textContent = i + 1;
+  });
+}
+
+function getRows() {
+  return Array.from(document.querySelectorAll('#table-body tr')).map((tr, i) => {
+    const g = c => tr.querySelector('[data-c="'+c+'"]')?.value || '';
+    return {uid: parseInt(tr.getAttribute('data-uid')), sno: i+1, name: g('name'), app: g('app'), fus: g('fus'), obs: g('obs'), inf: g('inf')};
+  });
+}
+
+function activateRow(uid) {
+  document.querySelectorAll('#table-body tr').forEach(tr => tr.classList.remove('active-row'));
+  document.querySelectorAll('.link-btn').forEach(btn => btn.textContent = '📍 Mark on X-ray');
+  
+  activeRowUID = uid;
+  document.getElementById('row-' + uid).classList.add('active-row');
+  document.getElementById('link-btn-' + uid).textContent = '👆 Click image...';
+  
+  toggleWorkspaceMode('mark');
+  
+  document.getElementById('xray-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── X-RAY ENGINE (ZERO LATENCY & GHOST PINS) ────────────────
+
+function gdUrl(fileId) { return 'https://drive.google.com/thumbnail?id=' + fileId + '&sz=w800'; }
 
 function loadXrays() {
   const q = assignedQ;
   const grid = document.getElementById('xray-grid');
   grid.innerHTML = '';
-  if (q.images.length > 1) grid.classList.add('two'); else grid.classList.remove('two');
+  if (q.images.length > 1) grid.classList.add('two');
+  
   q.images.forEach((img, idx) => {
-    pins[idx] = []; pinCounters[idx] = 0;
-    const wrap = document.createElement('div');
-    wrap.className = 'xray-wrap'; wrap.id = 'xray-wrap-' + idx;
+    pins[idx] = []; 
+    zoomState[idx] = {scale:1, panX:0, panY:0, dragging:false};
+
+    const block = document.createElement('div');
+    block.className = 'xray-block';
+
+    const toolbar = document.createElement('div');
+    toolbar.className = 'xray-toolbar';
+    toolbar.innerHTML = `<span class="xray-toolbar-label">${img.title}</span><button class="zoom-btn" onclick="zoomBtn(${idx},false)">−</button><span class="zoom-level" id="zoom-lbl-${idx}">100%</span><button class="zoom-btn" onclick="zoomBtn(${idx},true)">+</button><button class="zoom-reset" onclick="zoomReset(${idx})">Reset</button>`;
+    block.appendChild(toolbar);
+
+    const outer = document.createElement('div');
+    outer.className = 'xray-outer'; outer.id = 'xray-outer-' + idx;
+    outer.style.touchAction = workspaceMode === 'pan' ? 'none' : 'auto';
+
+    const inner = document.createElement('div');
+    inner.className = 'xray-inner'; inner.id = 'xray-inner-' + idx;
+
     const ld = document.createElement('div');
     ld.className = 'img-loading'; ld.id = 'img-ld-' + idx;
     ld.textContent = 'Loading ' + img.title + '...';
-    wrap.appendChild(ld);
+    outer.appendChild(ld);
+
     const imgEl = document.createElement('img');
-    imgEl.src = gdUrl(img.fileId); imgEl.alt = img.title;
-    imgEl.style.display = 'none';
-    imgEl.onload = () => { ld.style.display='none'; imgEl.style.display='block';
-      document.getElementById('xray-area').style.display='';
-      document.getElementById('no-xray').style.display='none'; };
-    imgEl.onerror = () => { ld.textContent = '⚠ Could not load — ensure Drive file is shared publicly.'; };
-    imgEl.addEventListener('click', e => {
-      const rect = imgEl.getBoundingClientRect();
-      const pctX = ((e.clientX-rect.left)/rect.width)*100;
-      const pctY = ((e.clientY-rect.top)/rect.height)*100;
-      pinCounters[idx]++;
-      const pid = 'pin-'+idx+'-'+pinCounters[idx];
-      pins[idx].push({id:pid,num:pinCounters[idx],pctX,pctY});
-      renderPin(idx,pid,pinCounters[idx],pctX,pctY);
-      updatePinCount();
+    imgEl.alt = img.title;
+    imgEl.draggable = false;
+    imgEl.style.display = 'none'; 
+    
+    imgEl.onload = () => {
+      ld.style.display = 'none'; 
+      imgEl.style.display = 'block';
+      document.getElementById('xray-area').style.display = '';
+      document.getElementById('no-xray').style.display = 'none';
+    };
+    imgEl.onerror = () => { 
+      ld.textContent = '⚠ Could not load assets correctly. Check internet connection.'; 
+    };
+    
+    imgEl.src = gdUrl(img.fileId); 
+    inner.appendChild(imgEl);
+
+    const pinLayer = document.createElement('div');
+    pinLayer.className = 'pin-layer'; pinLayer.id = 'pin-layer-' + idx;
+    inner.appendChild(pinLayer);
+    outer.appendChild(inner);
+
+    const hint = document.createElement('div');
+    hint.className = 'zoom-hint'; hint.textContent = 'Use mode toggles to interact';
+    outer.appendChild(hint);
+    block.appendChild(outer);
+    grid.appendChild(block);
+
+    function applyTransform() {
+      const z = zoomState[idx];
+      inner.style.transform = `translate(${z.panX}px,${z.panY}px) scale(${z.scale})`;
+      document.getElementById('zoom-lbl-' + idx).textContent = Math.round(z.scale * 100) + '%';
+    }
+    
+    function clampPan() {
+      const z = zoomState[idx];
+      const ow = outer.offsetWidth, oh = outer.offsetHeight;
+      const minX = Math.min(0, ow - ow * z.scale);
+      const minY = Math.min(0, oh - oh * z.scale);
+      z.panX = Math.max(minX, Math.min(0, z.panX));
+      z.panY = Math.max(minY, Math.min(0, z.panY));
+    }
+    
+    function zoomAt(cx, cy, factor) {
+      const z = zoomState[idx];
+      const newScale = Math.max(1, Math.min(6, z.scale * factor));
+      const ratio = newScale / z.scale;
+      z.panX = cx - ratio * (cx - z.panX);
+      z.panY = cy - ratio * (cy - z.panY);
+      z.scale = newScale; applyTransform();
+    }
+    zoomState[idx]._zoomAt = zoomAt;
+    zoomState[idx]._applyTransform = applyTransform;
+
+    // ── SUPER RESPONSIVE POINTER ENGINE ──
+    outer.addEventListener('pointerdown', e => {
+      // INSTANT MARKING
+      if (workspaceMode === 'mark') {
+        if (!activeRowUID) return showToast("⚠ Please select a row in the table below first!");
+        
+        // Notice we no longer check for overlapping pins because pins are completely unclickable "ghosts"
+
+        const rect = imgEl.getBoundingClientRect();
+        const pctX = ((e.clientX - rect.left) / rect.width) * 100;
+        const pctY = ((e.clientY - rect.top) / rect.height) * 100;
+        
+        if (pctX >= 0 && pctX <= 100 && pctY >= 0 && pctY <= 100) {
+          processPinDrop(idx, activeRowUID, pctX, pctY);
+        }
+        return; 
+      }
     });
-    wrap.appendChild(imgEl);
-    const lbl = document.createElement('div');
-    lbl.className = 'xray-label'; lbl.textContent = img.title; wrap.appendChild(lbl);
-    grid.appendChild(wrap);
+
+    let dragSX = 0, dragSY = 0, panSX = 0, panSY = 0, isTouchDrag = false;
+
+    // PANNING SUPPORT
+    outer.addEventListener('mousedown', e => {
+      if (e.button !== 0 || workspaceMode !== 'pan') return;
+      zoomState[idx].dragging = true;
+      dragSX = e.clientX; dragSY = e.clientY; panSX = zoomState[idx].panX; panSY = zoomState[idx].panY;
+      outer.style.cursor = 'grabbing';
+      e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', e => {
+      if (!zoomState[idx].dragging || isTouchDrag || workspaceMode !== 'pan') return;
+      zoomState[idx].panX = panSX + (e.clientX - dragSX);
+      zoomState[idx].panY = panSY + (e.clientY - dragSY);
+      clampPan(); applyTransform();
+    });
+
+    window.addEventListener('mouseup', e => {
+      if (!zoomState[idx].dragging || isTouchDrag) return;
+      zoomState[idx].dragging = false;
+      outer.style.cursor = (workspaceMode === 'pan') ? 'grab' : 'crosshair';
+    });
+
+    let lastTouchDist = 0;
+    outer.addEventListener('touchstart', e => {
+      if (workspaceMode !== 'pan') return; 
+      if (e.touches.length === 1) {
+         zoomState[idx].dragging = true; isTouchDrag = false; 
+         dragSX = e.touches[0].clientX; dragSY = e.touches[0].clientY;
+         panSX = zoomState[idx].panX; panSY = zoomState[idx].panY;
+      } else if (e.touches.length === 2) {
+         zoomState[idx].dragging = false; 
+         lastTouchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+      }
+    }, {passive:true});
+
+    outer.addEventListener('touchmove', e => {
+      if (workspaceMode !== 'pan') return;
+      if (e.touches.length === 1 && zoomState[idx].dragging) {
+         e.preventDefault(); isTouchDrag = true;
+         zoomState[idx].panX = panSX + (e.touches[0].clientX - dragSX);
+         zoomState[idx].panY = panSY + (e.touches[0].clientY - dragSY);
+         clampPan(); applyTransform();
+      } else if (e.touches.length === 2) {
+         e.preventDefault();
+         const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+         const rect = outer.getBoundingClientRect();
+         const cx = (e.touches[0].clientX + e.touches[1].clientX)/2 - rect.left;
+         const cy = (e.touches[0].clientY + e.touches[1].clientY)/2 - rect.top;
+         zoomAt(cx, cy, dist / lastTouchDist);
+         lastTouchDist = dist;
+      }
+    }, {passive:false});
+
+    outer.addEventListener('touchend', e => {
+      if (e.touches.length === 0 && zoomState[idx].dragging) {
+         zoomState[idx].dragging = false;
+      }
+    });
+    
+    outer.addEventListener('wheel', e => {
+      e.preventDefault();
+      const rect = outer.getBoundingClientRect();
+      zoomAt(e.clientX - rect.left, e.clientY - rect.top, e.deltaY < 0 ? 1.15 : 1/1.15);
+    }, {passive:false});
+
   });
 }
 
-function renderPin(idx,pid,num,pctX,pctY) {
-  const wrap = document.getElementById('xray-wrap-'+idx);
-  const el = document.createElement('div');
-  el.className='pin'; el.id=pid; el.textContent=num;
-  el.style.left=pctX+'%'; el.style.top=pctY+'%';
-  el.title='Pin '+num+' — click to remove';
-  el.addEventListener('click',e=>{e.stopPropagation();removePin(idx,pid);});
-  wrap.appendChild(el);
+function processPinDrop(imgIdx, uid, pctX, pctY) {
+  // If the user already placed a pin for this row on this image, it updates the coordinates (moves it)
+  let existingPin = pins[imgIdx].find(p => p.uid === uid);
+  if (existingPin) { existingPin.pctX = pctX; existingPin.pctY = pctY; } 
+  else { pins[imgIdx].push({ uid: uid, pctX: pctX, pctY: pctY }); }
+  
+  document.getElementById('link-btn-' + uid).textContent = '✓ Pinned (Click other view)';
+  renderAllPins();
 }
 
-function removePin(idx,pid) {
-  pins[idx]=pins[idx].filter(p=>p.id!==pid);
-  const el=document.getElementById(pid); if(el)el.remove();
-  pins[idx].forEach((p,i)=>{ p.num=i+1; const e=document.getElementById(p.id); if(e)e.textContent=p.num; });
-  pinCounters[idx]=pins[idx].length; updatePinCount();
-}
+function zoomBtn(idx, zoomIn) { const z = zoomState[idx]; z._zoomAt(z._outer.offsetWidth / 2, z._outer.offsetHeight / 2, zoomIn ? 1.25 : 1/1.25); }
+function zoomReset(idx) { const z = zoomState[idx]; z.scale = 1; z.panX = 0; z.panY = 0; z._applyTransform(); }
 
-function clearAllPins() {
-  Object.keys(pins).forEach(idx=>{
-    pins[idx].forEach(p=>{const e=document.getElementById(p.id);if(e)e.remove();});
-    pins[idx]=[]; pinCounters[idx]=0;
-  }); updatePinCount();
-}
-
-function updatePinCount() {
-  let t=0; Object.values(pins).forEach(a=>t+=a.length);
-  document.getElementById('total-pins').textContent=t;
-}
-
-// ── Table ──────────────────────────────────────────────────
-function addRow() {
-  rowCount++;
-  const tbody=document.getElementById('table-body');
-  const tr=document.createElement('tr'); tr.id='row-'+rowCount;
-  tr.innerHTML=`<td style="text-align:center;padding:6px 2px;color:#475569;font-size:12px">${tbody.rows.length+1}</td>
-    <td><input type="text" placeholder="Centre name" data-c="name" class="sel-ok"></td>
-    <td><input type="text" placeholder="e.g. 1 year" data-c="app" class="sel-ok"></td>
-    <td><input type="text" placeholder="e.g. 15–18 years" data-c="fus" class="sel-ok"></td>
-    <td><textarea data-c="obs" class="sel-ok"></textarea></td>
-    <td><textarea data-c="inf" class="sel-ok"></textarea></td>
-    <td><button class="del-btn" onclick="delRow('row-${rowCount}')" title="Remove">✕</button></td>`;
-  tbody.appendChild(tr); renumber();
-}
-
-function delRow(id){const el=document.getElementById(id);if(el)el.remove();renumber();}
-function renumber(){Array.from(document.querySelectorAll('#table-body tr')).forEach((tr,i)=>{tr.cells[0].textContent=i+1;});}
-function getRows(){
-  return Array.from(document.querySelectorAll('#table-body tr')).map((tr,i)=>{
-    const g=c=>tr.querySelector('[data-c="'+c+'"]')?.value||'';
-    return{sno:i+1,name:g('name'),app:g('app'),fus:g('fus'),obs:g('obs'),inf:g('inf')};
+function renderAllPins() {
+  const rowData = getRows(); 
+  Object.keys(pins).forEach(imgIdx => {
+    const layer = document.getElementById('pin-layer-' + imgIdx);
+    layer.innerHTML = ''; 
+    pins[imgIdx].forEach(p => {
+      const mappedRow = rowData.find(r => r.uid === p.uid);
+      if (!mappedRow) return; 
+      
+      // Creating the Ghost Pin
+      const el = document.createElement('div');
+      el.className = 'pin'; 
+      el.style.left = p.pctX + '%'; el.style.top = p.pctY + '%';
+      
+      const lbl = document.createElement('div');
+      lbl.className = 'pin-label'; lbl.textContent = mappedRow.sno; 
+      
+      el.appendChild(lbl);
+      layer.appendChild(el);
+    });
   });
 }
 
 // ── PDF export ─────────────────────────────────────────────
 function validateAndExport() {
-  if(!document.getElementById('s-name').value.trim()){alert('Please enter your name.');return;}
-  if(!document.getElementById('s-reg').value.trim()){alert('Please enter your register number.');return;}
-  if(document.querySelectorAll('#table-body tr').length===0){alert('Please add at least one row to the table.');return;}
+  if(!document.getElementById('s-name').value.trim()) { alert('Please enter your name.'); return; }
+  if(!document.getElementById('s-reg').value.trim()) { alert('Please enter your register number.'); return; }
+  if(document.querySelectorAll('#table-body tr').length === 0) { alert('Please add at least one row to the table.'); return; }
   buildPDF();
 }
 
 function buildPDF() {
-  const name=document.getElementById('s-name').value.trim();
-  const roll=document.getElementById('s-roll').value.trim();
-  const reg=document.getElementById('s-reg').value.trim();
-  const cas=document.getElementById('s-case').value.trim()||'—';
-  const ageR=document.getElementById('age-range').value.trim()||'Not specified';
-  const opin=document.getElementById('opinion').value.trim()||'Not entered.';
-  const rows=getRows();
-  const q=assignedQ;
-  const now=new Date();
-  const ts=now.toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});
-  const elapsed=startTime?Math.floor((Date.now()-startTime)/60000):null;
-  const totalPins=Object.values(pins).reduce((s,a)=>s+a.length,0);
+  const name = document.getElementById('s-name').value.trim();
+  const roll = document.getElementById('s-roll').value.trim();
+  const reg = document.getElementById('s-reg').value.trim();
+  const cas = document.getElementById('s-case').value.trim() || '—';
+  const ageR = document.getElementById('age-range').value.trim() || 'Not specified';
+  const opin = document.getElementById('opinion').value.trim() || 'Not entered.';
+  const rows = getRows();
+  const q = assignedQ;
+  const ts = new Date().toLocaleString('en-IN');
+  const elapsed = startTime ? Math.floor((Date.now() - startTime) / 60000) : null;
 
-  if (!isFaculty) {
-      localStorage.setItem('ospe_completed_' + roll, 'true');
-  }
+  if (!isFaculty) { localStorage.setItem('ospe_completed_' + studentRoll, 'true'); }
 
-  const imgTags=q.images.map((img,idx)=>{
-    const po=(pins[idx]||[]).map(p=>`<div style="position:absolute;left:${p.pctX}%;top:${p.pctY}%;width:14px;height:14px;border-radius:50%;background:#ef4444;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#fff;transform:translate(-50%,-50%)">${p.num}</div>`).join('');
+  const imgTags = q.images.map((img, idx) => {
+    const po = (pins[idx] || []).map(p => {
+      const mappedRow = rows.find(r => r.uid === p.uid);
+      const sNum = mappedRow ? mappedRow.sno : '?';
+      return `
+      <div style="position:absolute;left:${p.pctX}%;top:${p.pctY}%;width:4px;height:4px;background:#ef4444;border-radius:50%;transform:translate(-50%,-50%);">
+        <div style="position:absolute;top:-10px;left:6px;color:#ef4444;font-size:10px;font-weight:bold;text-shadow:1px 1px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000;font-family:monospace;">${sNum}</div>
+      </div>`;
+    }).join('');
     return `<div style="display:inline-block;position:relative;margin-right:8px;margin-bottom:8px;vertical-align:top"><img src="${gdUrl(img.fileId)}" style="max-width:320px;max-height:280px;border:1px solid #ccc;display:block" alt="${img.title}">${po}<div style="font-size:10px;color:#555;margin-top:3px">${img.title}</div></div>`;
   }).join('');
 
-  const tableRows=rows.map(r=>`<tr><td style="text-align:center;padding:5px 4px;border:1px solid #ccc">${r.sno}</td><td style="padding:5px 7px;border:1px solid #ccc">${r.name||'—'}</td><td style="padding:5px 7px;border:1px solid #ccc">${r.app||'—'}</td><td style="padding:5px 7px;border:1px solid #ccc">${r.fus||'—'}</td><td style="padding:5px 7px;border:1px solid #ccc;white-space:pre-wrap">${r.obs||'—'}</td><td style="padding:5px 7px;border:1px solid #ccc;white-space:pre-wrap">${r.inf||'—'}</td></tr>`).join('');
+  const tableRows = rows.map(r => `<tr><td style="text-align:center;padding:5px 4px;border:1px solid #ccc">${r.sno}</td><td style="padding:5px 7px;border:1px solid #ccc">${r.name||'—'}</td><td style="padding:5px 7px;border:1px solid #ccc">${r.app||'—'}</td><td style="padding:5px 7px;border:1px solid #ccc">${r.fus||'—'}</td><td style="padding:5px 7px;border:1px solid #ccc;white-space:pre-wrap">${r.obs||'—'}</td><td style="padding:5px 7px;border:1px solid #ccc;white-space:pre-wrap">${r.inf||'—'}</td></tr>`).join('');
 
-  let violSection = '';
-  if(violations.length>0){
-    const lines=violations.map(v=>`<li>${v}</li>`).join('');
-    violSection=`<div style="background:#fef2f2;border:1.5px solid #ef4444;border-radius:6px;padding:10px 14px;margin-bottom:10px">
-      <div style="font-size:12px;font-weight:700;color:#b91c1c;margin-bottom:4px">⚠ ACADEMIC INTEGRITY VIOLATIONS DETECTED</div>
-      <div style="font-size:11px;color:#7f1d1d;">This student has violated examination rules during the assessment. The following incidents were automatically recorded:</div>
-      <ul style="font-size:11px;color:#991b1b;margin:6px 0 0 16px;line-height:1.8">${lines}</ul>
-      <div style="font-size:11px;font-weight:600;color:#b91c1c;margin-top:6px">This record has been automatically stamped and cannot be altered.</div>
-    </div>`;
-  } else {
-    violSection=`<div style="background:#f0fdf4;border:1px solid #22c55e;border-radius:6px;padding:8px 14px;margin-bottom:10px;font-size:11px;color:#166534">✓ No integrity violations detected during this assessment.</div>`;
-  }
+  let violSection = (violations.length > 0) ? `<div style="background:#fef2f2;border:1.5px solid #ef4444;border-radius:6px;padding:10px 14px;margin-bottom:10px"><div style="font-size:12px;font-weight:700;color:#b91c1c;margin-bottom:4px">⚠ ACADEMIC INTEGRITY VIOLATIONS RECORDED</div><ul style="font-size:11px;color:#991b1b;margin:6px 0 0 16px;line-height:1.8">${violations.map(v => `<li>${v}</li>`).join('')}</ul></div>` : `<div style="background:#f0fdf4;border:1px solid #22c55e;border-radius:6px;padding:8px 14px;margin-bottom:10px;font-size:11px;color:#166534">✓ No integrity conflicts flagged during verification.</div>`;
+  const previewNote = isFaculty ? `<div style="background:#ede9fe;border:1px solid #7c3aed;border-radius:6px;padding:8px 14px;margin-bottom:10px;font-size:11px;color:#5b21b6;font-weight:600">FACULTY PREVIEW MODE</div>` : '';
 
-  const previewNote = isFaculty ? `<div style="background:#ede9fe;border:1px solid #7c3aed;border-radius:6px;padding:8px 14px;margin-bottom:10px;font-size:11px;color:#5b21b6;font-weight:600">FACULTY PREVIEW — Not a student submission</div>` : '';
+  const doc = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>OSPE Output — ${name}</title><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;font-size:12px;color:#111;padding:18px 22px}.hdr{display:flex;justify-content:space-between;border-bottom:2px solid #111;padding-bottom:10px;margin-bottom:12px}.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:3px 18px;margin-bottom:12px}h2{font-size:12px;font-weight:700;border-bottom:1.5px solid #111;padding-bottom:3px;margin:12px 0 7px;text-transform:uppercase}table{width:100%;border-collapse:collapse;margin-bottom:10px}th{background:#f0f0f0;padding:6px 7px;border:1px solid #bbb;font-weight:700}.opinion-box{border:1px solid #ccc;border-radius:4px;padding:10px 12px;background:#fafafa;line-height:1.7}@media print{.no-print{display:none}}</style></head><body>${previewNote}<div class="hdr"><div><h1>OSPE Practical Assessment Output</h1></div></div><div class="meta"><div>Name: <strong>${name}</strong></div><div>Register No: <strong>${reg}</strong></div><div>Roll No: <strong>${roll}</strong></div><div>Joint Type: <strong>${q.joint}</strong></div><div>Time Duration: <strong>${elapsed!==null?elapsed+' min':'Faculty'}</strong></div><div>Timestamp: <strong>${ts}</strong></div></div>${violSection}<h2>Marked Artifact Canvas</h2><div>${imgTags}</div><h2>Ossification Core Matrix</h2><table><thead><tr><th>S.No</th><th>Ossification centre</th><th>Appearance</th><th>Fusion</th><th>Observation</th><th>Inference</th></tr></thead><tbody>${tableRows}</tbody></table><h2>Final Opinion</h2><p><strong>Age Scope Estimate:</strong> ${ageR}</p><div class="opinion-box">${opin.replace(/\n/g,'<br>')}</div><div class="no-print" style="margin-top:18px;text-align:center"><button onclick="window.print()" style="padding:10px 28px;background:#111;color:#fff;border:none;border-radius:6px;cursor:pointer">Print Document</button></div></body></html>`;
 
-  const doc=`<!DOCTYPE html><html><head><meta charset="utf-8">
-<title>Age Estimation — ${name} — Roll ${roll} — ${ts}</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#111;padding:18px 22px}
-.hdr{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #111;padding-bottom:10px;margin-bottom:12px}
-.hdr h1{font-size:15px;font-weight:700;margin-bottom:2px}
-.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:3px 18px;margin-bottom:12px;font-size:11px}
-.ml{color:#555}
-h2{font-size:12px;font-weight:700;border-bottom:1.5px solid #111;padding-bottom:3px;margin:12px 0 7px;text-transform:uppercase;letter-spacing:0.5px}
-table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:11px}
-th{background:#f0f0f0;padding:6px 7px;border:1px solid #bbb;font-weight:700;text-align:left}
-.opinion-box{border:1px solid #ccc;border-radius:4px;padding:10px 12px;background:#fafafa;font-size:12px;line-height:1.7;margin-bottom:10px}
-.tsbar{border-top:1px solid #ccc;padding-top:7px;margin-top:14px;font-size:10px;color:#555;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px}
-.atag{display:inline-block;background:#dbeafe;color:#1d4ed8;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;margin-left:6px}
-@media print{.no-print{display:none}body{padding:10px 12px}}
-</style></head><body>
-${previewNote}
-<div class="hdr">
-  <div>
-    <h1>Forensic Medicine — OSPE Practical Assessment <span class="atag">${q.label} — ${q.joint}</span></h1>
-    <div style="font-size:11px;color:#555">Age Estimation by Radiological Examination of X-ray</div>
-  </div>
-  <div style="text-align:right;font-size:10px;color:#666">Department of Forensic Medicine &amp; Toxicology<br>For examiner evaluation only</div>
-</div>
-<div class="meta">
-  <div><span class="ml">Name: </span><strong>${name}</strong></div>
-  <div><span class="ml">Register no.: </span><strong>${reg}</strong></div>
-  <div><span class="ml">Roll no.: </span><strong>${roll}</strong></div>
-  <div><span class="ml">Station: </span><strong>${cas}</strong></div>
-  <div><span class="ml">Assigned X-ray: </span><strong>${q.label} (${q.joint})</strong></div>
-  <div><span class="ml">Time taken: </span><strong>${elapsed!==null?elapsed+' min':'N/A (Faculty)'}</strong></div>
-  <div><span class="ml">Submission: </span><strong>${ts}</strong></div>
-  <div><span class="ml">Total pins: </span><strong>${totalPins}</strong></div>
-</div>
-${violSection}
-<h2>X-ray with marked ossification centres</h2>
-<div style="margin-bottom:8px">${imgTags}</div>
-<h2>Ossification centre analysis table</h2>
-<table><thead><tr>
-  <th style="width:26px">S.No</th><th style="width:18%">Ossification centre</th>
-  <th style="width:13%">Age of appearance</th><th style="width:13%">Age of fusion</th>
-  <th>Observation</th><th>Inference</th>
-</tr></thead><tbody>${tableRows}</tbody></table>
-<h2>Opinion</h2>
-<p style="margin-bottom:5px"><strong>Estimated age range: </strong>${ageR}</p>
-<div class="opinion-box">${opin.replace(/\n/g,'<br>')}</div>
-<div class="tsbar">
-  <span><strong>Submission timestamp:</strong> ${ts}</span>
-  <span>Roll: ${roll} | X-ray: ${q.label} | Joint: ${q.joint} | Reg: ${reg}</span>
-</div>
-<div class="no-print" style="margin-top:18px;text-align:center">
-  <button onclick="window.print()" style="padding:10px 28px;font-size:14px;background:#111;color:#fff;border:none;border-radius:6px;cursor:pointer">🖨 Print / Save as PDF</button>
-</div>
-</body></html>`;
-
-  const blob=new Blob([doc],{type:'text/html'});
-  const url=URL.createObjectURL(blob);
-  const w=window.open(url,'_blank');
-  if(!w) alert('Pop-up blocked — allow pop-ups and try again.');
+  const blob = new Blob([doc], {type:'text/html'});
+  const url = URL.createObjectURL(blob);
+  window.open(url, '_blank');
 }
+
+// Start with one row
+addRow();
 </script>
-</body>
-</html>
+</body></html>
